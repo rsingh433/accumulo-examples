@@ -96,3 +96,8 @@ accumulo:
   username: root
   password: tercesrepus
   instanceName: s3test
+  zookeeper:
+    address: bitnami-zookeeper.zookeeper.svc.cluster.local
+    port: 2181
+
+

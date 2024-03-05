@@ -8,12 +8,10 @@ data:
     auth.type=password
     auth.principal=root
     instance.name=s3test
-    instance.zookeepers={{ include "accumulo.zookeeper.fullname" . }}:2181
+    instance.zookeepers={{ .Values.accumulo.zookeeper.address }}:{{ .Values.accumulo.zookeeper.port }}
     rpc.transport.idle.timeout=60s
 
-
 ---
-
 
 apiVersion: v1
 kind: ConfigMap
@@ -24,7 +22,7 @@ data:
   accumulo.properties: |
     general.rpc.timeout=240s
     instance.secret=s3test
-    instance.zookeeper.host={{ include "accumulo.zookeeper.fullname" . }}:2181
+    instance.zookeeper.host={{ .Values.accumulo.zookeeper.address }}:{{ .Values.accumulo.zookeeper.port }}
     manager.wal.closer.implementation=org.apache.accumulo.server.manager.recovery.NoOpLogCloser
     table.durability=sync
     tserver.memory.maps.native.enabled=false
