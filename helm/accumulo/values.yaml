@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: accumulo-s3-fs
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: 2.1.0
 
 imagePullSecrets: []
 nameOverride: ""
@@ -80,3 +80,19 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+  # Values for MinIO components
+minio:
+  namespace: minio-dev
+  image:
+    repository: quay.io/minio/minio
+    tag: latest
+    pullPolicy: IfNotPresent
+  hostPath: /home/rsingh2/git/accumulo-examples/helm/accumulo/export
+  serviceType: ClusterIP
+
+## Accumulo values section
+accumulo:
+  username: root
+  password: tercesrepus
+  instanceName: s3test
