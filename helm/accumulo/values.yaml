@@ -99,5 +99,19 @@ accumulo:
   zookeeper:
     address: bitnami-zookeeper.zookeeper.svc.cluster.local
     port: 2181
-
-
+accumuloConfig:
+  rpcTransportIdleTimeout: 60s
+  rpcTimeout: 240s
+  tableDurability: sync
+  tserverMemoryMapsNativeEnabled: false
+  tserverWalogMaxSize: 512M
+  tserverPortSearch: true
+  volumes:
+    default: s3a://accumulo/database
+    logger: s3a://accumulo/wal
+  volumeChooser: org.apache.accumulo.core.spi.fs.PreferredVolumeChooser
+accumuloInit:
+  image:
+    repository: accumulo-s3-fs
+    tag: 2.1.0
+    pullPolicy: IfNotPresent
